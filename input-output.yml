@@ -19,7 +19,10 @@
             - "the value of y is : {{y}}"
             - "the username is : {{username}}"
             - "the password is : {{password}}"
+       - file: "dest=/tmp/abcd state=touch"
+         become: yes
        - copy:
-           src: "{{username}}"
+           content: "{{ username }}"
            dest: /tmp/abcd
            mode: 755
+         become: true

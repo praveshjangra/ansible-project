@@ -1,2 +1,11 @@
 ---
 # tasks file for db_role
+- name : Installing httpd
+  package:
+     name: "{{ httpd_name }}"
+     state: present
+- name: Starting service
+  service:
+    name: "{{ service_name }}"
+    state: started
+    enabled: yes

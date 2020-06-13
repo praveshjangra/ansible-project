@@ -1,0 +1,21 @@
+---
+- name: Installing web server
+  hosts: all
+#  roles:
+ #   - db_role
+ # vars_files:
+  #      - db_role/vars/centos-var.yml
+  pre_tasks:
+    - name: cleaning repos 
+      yum:
+       update_cache: true
+  tasks:
+    - import_role:
+       name: db_role
+     # vars:
+     #   httpd_name: ntp
+      #when: ansible_host == "kmaster"
+      become: yes
+
+
+- import_playbook: input-output.yml

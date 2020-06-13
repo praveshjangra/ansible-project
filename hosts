@@ -19,9 +19,9 @@
 
 [kube]
 kworker1
+kmaster
 [kube2]
 kworker2
-nginx
 [kube3:children]
 kube
 kube2
