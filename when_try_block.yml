@@ -1,0 +1,17 @@
+---
+    - name: Playing  with When condition
+      hosts: all
+      gather_facts: true
+      tasks:
+      - block:
+          - yum:
+             name: httpdd
+             state: present
+        when: ansible_nodename == "kworker1.example.com"
+        become: yes
+        rescue:
+            - debug:
+                msg: Wrong package name
+        always:
+            - debug:
+                msg: It Will run always

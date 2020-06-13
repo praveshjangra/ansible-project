@@ -1,0 +1,17 @@
+---
+    - name: "Ansible Debug playbook"
+      hosts: all
+      tasks:
+       - name: "Run Debug module"
+         debug:
+            #msg: "This is debug output from {{inventory_hostname}}"
+            verbosity: 0
+            var: inventory_hostname
+             
+       - name: copy stuff
+         copy:
+            src: /etc/fstab
+            dest: /tmp/
+            mode: 755
+       - shell:
+           cmd:  sudo cat /tmp/fstab

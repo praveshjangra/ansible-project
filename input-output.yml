@@ -1,0 +1,25 @@
+--- 
+  -  name: Printing and getting output 
+     hosts: all
+     gather_facts: false
+     vars:
+        x: 45
+        y: 543
+     vars_prompt:
+        - name: username
+          prompt: Enter the username
+          private: false
+        - name: password
+          prompt: Enter the password
+          private: true
+     tasks:
+       - debug:
+          msg:  
+            - "the value of x is : {{x}}"
+            - "the value of y is : {{y}}"
+            - "the username is : {{username}}"
+            - "the password is : {{password}}"
+       - copy:
+           src: "{{username}}"
+           dest: /tmp/abcd
+           mode: 755

@@ -1,0 +1,23 @@
+---
+  - name: Simple playbook for install/uninstall packages
+    hosts: kworker1
+    gather_facts: false
+    become: yes
+    tasks:
+    - name: install {{pkg}}
+      yum:
+        name: "{{pkg}}"
+        state: "{{req_state}}"
+    - file:
+        path: /tmp/fstab
+        state: absent
+       # register: file2
+        #ignore_errors: yes
+    - command: "uptime"
+      register: uptime2
+      ignore_errors: yes
+    - command: "free -m"
+      register: free2
+    - debug:
+        var: uptime2
+        var: free2
