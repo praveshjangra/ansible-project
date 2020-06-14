@@ -1,0 +1,6 @@
+---
+# vars file for test_role
+        system_users:
+          - centos
+          - jenkins
+      

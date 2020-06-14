@@ -1,0 +1,69 @@
+---   
+        - name: Install httpd
+          package:
+             name: httpd
+             state: present
+        - name: Start/enable httpd
+          service:
+           name: httpd
+           state: started
+           enabled: true
+        - name: create managemet users
+          user:
+           name: "{{item}}"
+          with_items:
+           - "{{system_users}}"
+        - name: create .ssh directory
+          file:
+           path: "/home/{{item}}/.ssh"
+           owner: "{{item}}"
+           group: "{{item}}"
+           mode: "0700"
+           state: directory
+          with_items:
+            - "{{system_users}}"
+        - name: add authorized_key file for user
+          copy:
+           src: ssh-keys/authorized_keys
+           dest: "/home/{{item}}/.ssh/authorized_keys"
+           owner: "{{item}}"
+           group: "{{item}}"
+           mode: "0600"
+          with_items:
+            - "{{system_users}}"
+        - name: "add id_rsa public key for user"
+          copy:
+           src: ssh-keys/id_rsa.pub
+           dest: "/home/{{item}}/.ssh/id_rsa.pub"
+           owner: "{{item}}"
+           group: "{{item}}"
+           mode: "0644"
+          with_items:
+           - "{{system_users}}"
+        - name: "add id_rsa private key for user"
+          copy:
+           src: ssh-keys/id_rsa
+           dest: "/home/{{item}}/.ssh/id_rsa"
+           owner: "{{item}}"
+           group: "{{item}}"
+           mode: "0600"
+          with_items:
+           - "{{system_users}}"
+        - name: "add bitbucket config file for user"
+          copy:
+           src: ssh-keys/config
+           dest: "/home/{{item}}/.ssh/config"
+           owner: "{{item}}"
+           group: "{{item}}"
+           mode: "0644"
+          with_items:
+           - "{{system_users}}"
+        - name: "add bitbucket access key for user"
+          copy:
+           src: ssh-keys/config
+           dest: "/home/{{item}}/.ssh/id_rsa_bitbucket"
+           owner: "{{item}}"
+           group: "{{item}}"
+           mode: "0400"
+          with_items:
+           - "{{system_users}}"

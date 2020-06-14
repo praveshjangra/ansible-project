@@ -1,0 +1,11 @@
+---
+   tasks:
+     - name: Install httpd
+       package:
+          name: httpd
+          state: present
+     - name: Start/enable httpd
+       service:
+         name: httpd
+         state: started
+         enabled: true

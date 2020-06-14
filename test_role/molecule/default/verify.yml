@@ -1,0 +1,13 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: all
+  tasks:
+  - name: Example assertion
+    shell: rpm -qa |grep httpd
+    register: rpm_output
+  - debug:
+       var: rpm_output.stdout
+
+ 
